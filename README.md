@@ -1,4 +1,20 @@
-# Materials and Methods
+# Transcriptome analysis reveals differences in human placental metabolism, transport and endocrine function across the first-second trimester transition #
+
+**Malwina Prater<sup>a</sup>, Russell S. Hamilton<sup>a</sup>, Hong Wa Yung<sup>a</sup>, Andrew M. Sharkey<sup>a,b</sup>, Paul Robson<sup>c</sup>, Eric Jauniaux<sup>d</sup>, D. Stephen Charnock-Jones<sup>a,e,f</sup>, Graham J. Burton<sup>a,§</sup>, Tereza Cindrova-Davies<sup>a,§</sup>**
+
+
+<sup>a</sup> Centre for Trophoblast Research, Department of Physiology, Development and Neuroscience, University of Cambridge, Downing Street, Cambridge, CB2 3EG, UK.
+<sup>b</sup> Department of Pathology, University of Cambridge, Tennis Court Road, Cambridge, CB2???
+<sup>c</sup> Jackson Labs.
+<sup>d</sup> EGA Institute for Women’s Health, Faculty of Population Health Sciences.  University College London, London, WC1E 6BT, UK.
+<sup>e</sup> Department of Obstetrics and Gynaecology, University of Cambridge, The Rosie Hospital, Cambridge, CB2 0SW, UK
+<sup>f</sup> National Institute for Health Research, Cambridge Biomedical Research Centre.
+
+<sup>§</sup> These authors contributed equally
+
+
+
+# Methylation Analysis
 
 ## Infinium Methylation EPIC array
 
