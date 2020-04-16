@@ -51,15 +51,27 @@ EPIC methylation array data have been deposited in the ArrayExpress database at 
 
 <IMG SRC="Figures/CTR_EPIC.First_Second.PCA_oxBS.png" width=400px>
 
+##### Methylation Correlation: First Vs Second trimester #####
+
+<IMG SRC="Figures/CTR_EPIC.First_Second.MethylationCorrelation.png" width=400px>
+
 ##### Methylation Vs Expression Correlation #####
 
 <IMG SRC="Figures/CTR_EPIC.First_Second.Correlation_DMR_RNA.png" width=400px>
+<P>
+<IMG SRC="Figures/CTR_EPIC.First_Second.Dendro_oxBS.png" width=400px>
 
 ##### Methylation Vs Expression Heatmaps #####
 
 |   |   |
 |---------|-----------------|
 | <IMG SRC="Figures/CTR_EPIC.First_Second.Heatmap_purple.png" width=300px> | <IMG SRC="Figures/CTR_EPIC.First_Second.Heatmap_blue.png" width=300px> <BR> <IMG SRC="Figures/CTR_EPIC.First_Second.Heatmap_green.png" width=300px> <BR> <IMG SRC="Figures/CTR_EPIC.First_Second.Heatmap_red.png" width=300px> |
+
+
+##### Methylation Vs Genomic Features #####
+
+
+<IMG SRC="Figures/CTR_EPIC.First_Second.GenomicFeatureSelected.DensityBoxPlotFreeScale.png" width=400px><br>
 
 
 ### References ###
