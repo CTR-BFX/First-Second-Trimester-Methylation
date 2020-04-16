@@ -1,11 +1,47 @@
+#!/usr/local/bin/Rscript
 
+#------------------------------------------------------------------------------
+# EPIC Analysis        
+# Data from GenomeScan EPIC Array 
+#
+# Link to publication
+# TO ADD ONCE AVAILABLE
+#
+# Script available from:
+# https://github.com/CTR-BFX/First-Second-Trimester-Methylation
+#
+#
+# Analysis Performed by Russell S. Hamilton
+# CTR Bioinformatics Facility
+# Centre for Trophoblast Reseach, University of Cambridge, UK
+# Copyright Russell S. Hamilton (rsh46@cam.ac.uk)
+#
+#------------------------------------------------------------------------------
+# License Information
+# This program is free software: you can redistribute it and/or modify  
+# it under the terms of the GNU General Public License as published by  
+# the Free Software Foundation, version 3.
+#
+# This program is distributed in the hope that it will be useful, but 
+# WITHOUT ANY WARRANTY; without even the implied warranty of 
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License 
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#------------------------------------------------------------------------------
+
+
+
+library("DESeq2")
+library("biomaRt")
 library("ggplot2")
 library("ggrepel")
 library("ComplexHeatmap")
 library("circlize")
 library("dplyr")
 
-setwd("~/Documents/CTR-Data/CTR_EPIC/Test_DMRs")
+setwd("~/Documents/CTR-Data/CTR_EPIC/GitHub_Pre_Post-flow")
 
 Project <- "pre-post"
 
