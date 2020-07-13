@@ -2,7 +2,7 @@
 
 **Malwina Prater<sup>a</sup>, Russell S. Hamilton<sup>a,b</sup>, Hong Wa Yung<sup>a</sup>, Andrew M. Sharkey<sup>a,b</sup>, Paul Robson<sup>c</sup>, Eric Jauniaux<sup>d</sup>, D. Stephen Charnock-Jones<sup>a,e,f</sup>, Graham J. Burton<sup>a,§</sup>, Tereza Cindrova-Davies<sup>a,§</sup>**
 
-
+<sub>
 <sup>a</sup> Centre for Trophoblast Research, Department of Physiology, Development and Neuroscience, University of Cambridge, Downing Street, Cambridge, CB2 3EG, UK.
 <sup>b</sup> Department of Genetics, University of Cambridge, Downing Street, Cambridge, CB2 3EH
 <sup>c</sup> Department of Pathology, University of Cambridge, Tennis Court Road, Cambridge, CB2 1QP
@@ -13,9 +13,13 @@
 
 <sup>§</sup> These authors contributed equally
 
+</sub>
+
 # Citation
 
 Prater, M., Hamilton, R.S., Yung, H-W, Sharkey, A.M., Robson, P, Jauniaux, E., Charnock-Jones, D.S., Burton G.J. & Cindrova-Davies, T. (2020) RNA-Seq reveals changes in human placental metabolism, transport and endocrinology function in the first-second trimester transition. Submitted [DOI]
+
+> Note: RNA-Seq analysis is available on a separate [GitHub](https://github.com/CTR-BFX/2020_Prater_Cindrova) repository.
 
 # Methylation Analysis
 
@@ -92,7 +96,9 @@ EPIC methylation array data have been deposited in the ArrayExpress database at 
 Description   | URL
 ------------- | ----------
 Publication   | [Journal](https://) and [DOI](https://doi.org/)
-Raw Data (EPIC) | ArrayExpress EMBL-EBI [E-MTAB-XXXX](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-XXXX)
+Raw Data (EPIC) | ArrayExpress EMBL-EBI [E-MTAB-9312](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-9312)
+Raw Data (RNA-Seq) | ArrayExpress EMBL-EBI [E-MTAB-9203](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-9203)
+
 
 
 ### Contact
