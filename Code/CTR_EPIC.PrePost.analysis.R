@@ -31,6 +31,8 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #------------------------------------------------------------------------------
 
+#BiocManager::install("ChAMP")
+
 
 library("ggplot2")
 library('gplots')
@@ -39,7 +41,7 @@ library('minfi')
 library('lumi')
 library('methylumi')
 library('limma')
-library('VennDiagram');
+#library('VennDiagram');
 require('FDb.InfiniumMethylation.hg19')
 require('IlluminaHumanMethylationEPICmanifest')
 library('ChAMP')
@@ -169,14 +171,19 @@ customPCADendro <- function(ProjectTitle, myNorm, TOPNUM, sampleTable.champ) {
              xlab(pc1lab) + 
              ylab(pc2lab) +
              scale_colour_manual(name="", values = c("first"="firebrick2", "second"="steelblue3"), 
-                                          labels=c("first"="First Trimester", "second"="Second Trimester")) +
+                                          labels=c("first"="First Trimester", "second"="Second Trimester"), guide=F) +
              scale_fill_manual(  name="", values = c("first"="firebrick2", "second"="steelblue3"), 
-                                          labels=c("first"="First Trimester", "second"="Second Trimester")) +
+                                          labels=c("first"="First Trimester", "second"="Second Trimester"), guide=F) +
              expand_limits(x = c(-5, 5), y = c(-4,4)) +
              scale_x_continuous(breaks = seq(-5,5, 2.5)) +
              scale_y_continuous(breaks = seq(-4,4, 2)) +
              #theme_bw() +
-             theme(text = element_text(size=12), aspect.ratio=1, legend.position="none") 
+             theme_cowplot(12) +
+             theme(axis.text=element_text(size=10), 
+                   legend.title=element_text(size=10),
+                   legend.text=element_text(size=8),
+                   axis.title=element_text(size=10),
+                   aspect.ratio=1, legend.position="right") 
   
   loadings        <- as.data.frame(pca$rotation)
   topX            <- 20
@@ -213,7 +220,7 @@ customPCADendro <- function(ProjectTitle, myNorm, TOPNUM, sampleTable.champ) {
 
 plt.QC <- customPCADendro(Project, myNorm, 500, sampleTable.champ)
 
-pdf(paste0(baseDir, "/", GitHubDir, "/Figures/", Project, ".PCA_oxBS.pdf"),width=5,height=5, onefile=FALSE)
+pdf(paste0(baseDir, "/", GitHubDir, "/Figures/", Project, ".PCA_oxBS.pdf"),width=4.5,height=4, onefile=FALSE)
 par(bg=NA)
 plt.QC[[1]]
 dev.off()
@@ -358,19 +365,27 @@ plt.meth.corr <- ggplot(data=meth_corr, aes(x=first_oxBS_meanBeta, y=second_oxBS
                  geom_abline(intercept = 0, slope = 1, linetype="dashed") +
                  geom_abline(intercept = -(threshold), slope = 1, linetype="dashed") +
                  geom_abline(intercept = -(2*threshold), slope = 1, linetype="dashed") +
-                 geom_label_repel(data=subset(meth_corr, 
-                                              (first_oxBS_meanBeta-second_oxBS_meanBeta) <= -2*threshold), 
-                                  force=10, size=2.5, colour="black", nudge_x=-0.05, nudge_y=0.05 ) +
-                 geom_label_repel(data=subset(meth_corr, 
-                                              (first_oxBS_meanBeta-second_oxBS_meanBeta) >=  2*threshold), 
-                                  force=10, size=2.5, colour="black", nudge_x=0.05,  nudge_y=-0.05) +
-                 scale_x_continuous(name="First Trimester",  limits=c(0,1.01), expand=c(0,0), breaks=seq(0,1,0.2)) +
-                 scale_y_continuous(name="Second Trimester", limits=c(0,1.01), expand=c(0,0), breaks=seq(0,1,0.2)) +
+            #     geom_label_repel(data=subset(meth_corr, 
+            #                                  (first_oxBS_meanBeta-second_oxBS_meanBeta) <= -2*threshold), 
+            #                      force=10, size=2.5, colour="black", nudge_x=-0.05, nudge_y=0.05 ) +
+           #      geom_label_repel(data=subset(meth_corr, 
+           #                                   (first_oxBS_meanBeta-second_oxBS_meanBeta) >=  2*threshold), 
+           #                       force=10, size=2.5, colour="black", nudge_x=0.05,  nudge_y=-0.05) +
+                 scale_x_continuous(name=bquote("First Trimester ("*beta~"value)"),  
+                                    limits=c(0,1.01), expand=c(0,0), breaks=seq(0,1,0.2)) +
+                 scale_y_continuous(name=bquote("Second Trimester ("*beta~"value)"), 
+                                    limits=c(0,1.01), expand=c(0,0), breaks=seq(0,1,0.2)) +
+  xlab(bquote("Methylation Difference (DMRs, "*beta~"value)")  )+
                  coord_fixed() +
-                 theme_bw()
+                 #theme_bw()
+                 theme_cowplot(12) +
+                 theme(axis.text=element_text(size=10), 
+                       #axis.text.x = element_text(angle = -45, vjust = 0.25, hjust=0.3),
+                       axis.title=element_text(size=12,face="bold"),
+                       aspect.ratio=1)
 
 
-pdf(paste0(baseDir, "/", GitHubDir, "/Figures/", Project, ".MethylationCorrelation.pdf"),width=6,height=5, onefile=FALSE)
+pdf(paste0(baseDir, "/", GitHubDir, "/Figures/", Project, ".MethylationCorrelation.pdf"),width=5,height=4.0, onefile=FALSE)
 par(bg=NA)
 plt.meth.corr
 dev.off()
@@ -580,26 +595,33 @@ head(feature.summary.tbl2)
 #after_stat()
 
 pdf(paste0(baseDir, "/", GitHubDir, "/Figures/", 
-           Project, ".GenomicFeatureSelected.DensityOverlay.pdf"), width=10,height=5)
+           Project, ".GenomicFeatureSelected.DensityOverlay.pdf"), width=3,height=4.5)
 par(bg=NA)
 ggplot(feature.summary.tbl2, aes(x =  (value), group=variable, colour=variable, fill=NULL)) + 
   geom_vline(xintercept=0.2, linetype="dashed", colour="darkgrey") +
   geom_vline(xintercept=0.8, linetype="dashed", colour="darkgrey") +
-  geom_density(outline.type="upper", show.legend = F ) +
-  stat_density(geom="line",position="identity") +
+ # geom_density(outline.type="upper", show.legend=F, size=1.5, alpha=0.25 ) +
+  stat_density(geom="line",position="identity", size=0.6, alpha=0.75) +
   scale_colour_manual(name="", 
                       values=c("first_oxBS_meanBeta"=col_1st, "second_oxBS_meanBeta"=col_2nd), 
                       limits=c("first_oxBS_meanBeta","second_oxBS_meanBeta"),
-                      labels=c("first_oxBS_meanBeta"="First Trimester","second_oxBS_meanBeta"="Second Trimester")) +
+                      labels=c("first_oxBS_meanBeta"="FT","second_oxBS_meanBeta"="ST")) +
   scale_x_continuous(name=bquote("Methylation ("*beta~"value)"), breaks=seq(0,1,0.2)) +
-  facet_wrap(. ~Feature_ordered, scales="free") +
+  facet_wrap(~Feature_ordered, nrow=3, scales="free") +
   ylab( "" ) +
-  guides(linetype = guide_legend(override.aes = list(size = 10))) +
+  guides(linetype = guide_legend(override.aes = list(size = 8))) +
+#  guides(fill=guide_legend(nrow=2,byrow=TRUE)) +
+#  guides(colour=guide_legend(ncol=1,nrow=1,byrow=TRUE)) +
+  theme_cowplot(12) +
   theme(text=element_text(size=12,  family="sans"),
-        axis.text.y = element_text(size=10),
-        axis.text.x = element_text(size=10), 
+        legend.text=element_text(size=8),
+        strip.text.x=element_text(size=10, face="bold"), 
+        axis.text.y=element_text(size=10),
+        axis.text.x=element_text(size=10), 
         strip.background = element_rect(colour=NULL, fill="white"),
-        legend.position="top")
+      #  legend.key.height=unit(2, "cm"),
+    #  legend.box="vertical",
+        legend.position="right")
 dev.off()
 
 

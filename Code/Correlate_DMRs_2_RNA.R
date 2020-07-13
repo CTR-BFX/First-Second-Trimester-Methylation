@@ -41,9 +41,10 @@ library("ComplexHeatmap")
 library("circlize")
 library("dplyr")
 
-setwd("~/Documents/CTR-Data/CTR_EPIC/GitHub_Pre_Post-flow")
+baseDir <- "~/Documents/CTR-Data/CTR_EPIC/GitHub_First_Second"
+setwd(baseDir)
 
-Project <- "pre-post"
+Project      <- "CTR_EPIC.First_Second"
 
 message("+-------------------------------------------------------------------------------")
 message("+ Use ensEMBL Annotations")
@@ -115,52 +116,52 @@ head(RNA.counts.meancentered)
 
 
 DMRs.RNAs <- merge(DMRs, RNAs, by="ensembl_gene_id")
-#DMRs.RNAs <- unique( DMRs.RNAs)
 DMRs.RNAs <- DMRs.RNAs[!duplicated(DMRs.RNAs[,c("name")]), ]
-
-
 DMRs.RNAs <- merge(DMRs.RNAs, RNA.counts.meancentered, by="ensembl_gene_id")
-head(DMRs.RNAs)
-subset(DMRs.RNAs, external_gene_name=="MMP2")
 
-subset(DMRs.RNAs, external_gene_name=="LOX")
+# Remove pseudo-genes HLA-L and HLA-H
+DMRs.RNAs <- subset(DMRs.RNAs, external_gene_name!="HLA-L")
+DMRs.RNAs <- subset(DMRs.RNAs, external_gene_name!="HLA-H")
 
-nrow(DMRs.RNAs)
 
 nrow( subset(DMRs.RNAs, abs(log2FoldChange > 1)  & abs(value) > 0.25 & padj <= 0.05))
 
 meth_thresh <- 0.2
 
-pdf(paste(Project, "_Correlation_DMR_RNA.pdf", sep=""),width=5,height=5, onefile=FALSE)
+pdf(paste0(baseDir, "/Figures/", Project, ".Correlation_DMR_RNA.pdf"),width=4.5,height=4.5, onefile=FALSE)
 par(bg=NA)
 ggplot(DMRs.RNAs, aes(x=value, y=log2FoldChange, label=external_gene_name)) +
-  geom_vline(xintercept = 0,  colour="black", linetype='solid') +
-  geom_hline(yintercept = 0,  colour="black", linetype='solid') +
-  
-  
+  geom_vline(xintercept = 0,  colour="black", linetype='solid', alpha=.5) +
+  geom_hline(yintercept = 0,  colour="black", linetype='solid', alpha=.5) +
   geom_vline(xintercept = meth_thresh,  colour="red", linetype='dashed') +
   geom_vline(xintercept = -meth_thresh, colour="red", linetype='dashed') +
-  
   geom_hline(yintercept = 1,  colour="red", linetype='dashed') +
   geom_hline(yintercept = -1, colour="red", linetype='dashed') +
   
-  geom_point(data=subset(DMRs.RNAs, abs(log2FoldChange) < 1 | abs(value) < meth_thresh | padj > 0.05), colour='grey') +
+  geom_point(data=subset(DMRs.RNAs, abs(log2FoldChange) < 1 | abs(value) < meth_thresh | padj > 0.05), 
+             colour='grey', size=1.5) +
+  geom_point(data=subset(DMRs.RNAs, log2FoldChange > 1  & value < -meth_thresh & padj <= 0.05 & dist2gene < 1000), 
+             colour='purple', size=1.5) +
+  geom_point(data=subset(DMRs.RNAs, log2FoldChange > 1  & value > meth_thresh  & padj <= 0.05 & dist2gene < 1000), 
+             colour='blue', size=1.5) +
+  geom_point(data=subset(DMRs.RNAs, log2FoldChange < -1 & value > meth_thresh  & padj <= 0.05 & dist2gene < 1000), 
+             colour='red', size=1.5) +
+  geom_point(data=subset(DMRs.RNAs, log2FoldChange < -1 & value < -meth_thresh & padj <= 0.05 & dist2gene < 1000), 
+             colour='darkgreen', size=1.5) +
   
-  geom_point( data=subset(DMRs.RNAs, log2FoldChange > 1  & value < -meth_thresh & padj <= 0.05 & dist2gene < 1000), colour='purple') +
-  geom_point( data=subset(DMRs.RNAs, log2FoldChange > 1  & value > meth_thresh  & padj <= 0.05 & dist2gene < 1000), colour='blue') +
+  geom_text_repel(data=subset(DMRs.RNAs, abs(log2FoldChange) > 1 & abs(value) > meth_thresh & padj <= 0.05 & dist2gene < 1000), 
+                  segment.alpha=0.6, size=2.75, force=10 ) +
   
-  geom_point( data=subset(DMRs.RNAs, log2FoldChange < -1 & value > meth_thresh  & padj <= 0.05 & dist2gene < 1000), colour='red') +
-  geom_point( data=subset(DMRs.RNAs, log2FoldChange < -1 & value < -meth_thresh & padj <= 0.05 & dist2gene < 1000), colour='darkgreen') +
-  
-  geom_text_repel(data=subset(DMRs.RNAs, abs(log2FoldChange) > 1 & abs(value) > meth_thresh & padj <= 0.05 & dist2gene < 1000), size=3 ) +
-  
-  xlab("Methylation Difference (DMRs)") +
-  ylab("Expression Difference (log2FoldChange)") +
+  xlab(bquote("Methylation Difference (DMRs, "*beta~"value)")  )+
+  ylab(bquote("Expression Difference (log"[2]~"Fold Change)") ) +
   scale_x_continuous(breaks=seq(-2,1,0.2)) +
   scale_y_continuous(breaks=seq(-3,4,1)) +
-  
-  
-  theme_bw()
+  #theme_bw() +
+  theme_cowplot(12) +
+  theme(axis.text=element_text(size=10), 
+        axis.text.x = element_text(angle = -45, vjust = 0.25, hjust=0.3),
+        axis.title=element_text(size=12,face="bold"),
+        aspect.ratio=1)
 dev.off()
 
 
@@ -255,7 +256,15 @@ enrichR.list.blue[,c("ensembl_gene_id", "external_gene_name", "entrezgene_id")]
 
 
 
+cat( paste( enrichR.list.purple[,c("ensembl_gene_id", "external_gene_name", "entrezgene_id")]$external_gene_name, collapse='\n' ) )
 
+xx <- DMRs.RNAs.purple.summary[, c("external_gene_name", "value")]
+rownames(xx) <- xx$external_gene_name
+print( xx[,c("value"), drop=F] )
+
+
+write.table(xx[,c("value"), drop=F], paste0(baseDir, "/Figures/", Project, ".Correlation_DMR_RNA.purple.txt"), 
+            append = FALSE, sep = ",", row.names=T, col.names=F, quote=F)
 
 #
 #
