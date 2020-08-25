@@ -62,25 +62,30 @@ EPIC methylation array data have been deposited in the ArrayExpress database at 
 
 ##### Methylation Correlation: First Vs Second trimester #####
 
-<IMG SRC="Figures/CTR_EPIC.First_Second.MethylationCorrelation.png" width=400px>
+|   |   |
+|---------|-----------------|
+| <IMG SRC="Figures/CTR_EPIC.First_Second.MethylationCorrelation.png" width=300px> | <IMG SRC="Figures/CTR_EPIC.First_Second.AllProbes.Correlations.png" width=300px> |
+
+
+
+##### Methylation Vs Genomic Features #####
+
+|   |   |
+|---------|-----------------|
+| <IMG SRC="Figures/CTR_EPIC.First_Second.GenomicFeatureSelected.DensityOverlay.png" width=400px> | <IMG SRC="Figures/CTR_EPIC.First_Second.All.Feature.Correlations.png" width=400px> |
+
+##### Methylation Vs Know Sex Specific gene expression and methylation  #####
+
+|   |   |
+|---------|-----------------|
+| Gong et al (2018). Placental polyamine metabolism differs by fetal sex, fetal growth restriction, and preeclampsia. JCI Insight, 3(13). http://doi.org/10.1172/jci.insight.120723 | Gong et al. (2018) Genome-wide oxidative bisulfite sequencing identifies sex-specific methylation differences in the human placenta. Epigenetics. http://doi.org/10.1080/15592294.2018.1429857 |
+| <IMG SRC="Figures/CTR_EPIC.First_Second.DMRVsDEGVsSexSpecificDEGs.Venn.png" width=400px> | <IMG SRC="Figures/CTR_EPIC.First_Second.DMRVsDEGVsSexSpecificDMR.Venn.png" width=400px> |
+
+
 
 ##### Methylation Vs Expression Correlation #####
 
 <IMG SRC="Figures/CTR_EPIC.First_Second.Correlation_DMR_RNA.png" width=400px>
-
-##### Methylation Vs Genomic Features #####
-
-<IMG SRC="Figures/CTR_EPIC.First_Second.GenomicFeatureSelected.DensityBoxPlotFreeScale.png" width=500px><br>
-
-
-<IMG SRC="Figures/CTR_EPIC.First_Second.GenomicFeatureSelected.DensityOverlay.png" width=500px>
-
-
-##### Methylation Vs Expression Heatmaps #####
-
-|   |   |
-|---------|-----------------|
-| <IMG SRC="Figures/CTR_EPIC.First_Second.Heatmap_purple.png" width=300px> | <IMG SRC="Figures/CTR_EPIC.First_Second.Heatmap_blue.png" width=300px> <BR> <IMG SRC="Figures/CTR_EPIC.First_Second.Heatmap_green.png" width=300px> <BR> <IMG SRC="Figures/CTR_EPIC.First_Second.Heatmap_red.png" width=300px> |
 
 
 
@@ -89,6 +94,8 @@ EPIC methylation array data have been deposited in the ArrayExpress database at 
 2.	Aryee, M. J. et al. Minfi: A flexible and comprehensive Bioconductor package for the analysis of Infinium DNA methylation microarrays. Bioinformatics 30, 1363–1369 (2014).
 3.	Zhou, W., Laird, P. W., Shen, H., Infinium, I. & Methylation, D. N. A. Comprehensive characterization, annotation and innovative use of Infinium DNA methylation BeadChip probes. Nucleic Acids Res. 45, e22 (2017).
 4.	Teschendorff, A. E. et al. A beta-mixture quantile normalization method for correcting probe design bias in Illumina Infinium 450 k DNA methylation data. Bioinformatics 29, 189–196 (2013).
+5. Gong et al (2018). Placental polyamine metabolism differs by fetal sex, fetal growth restriction, and preeclampsia. JCI Insight, 3(13).
+6. Gong et al. (2018) Genome-wide oxidative bisulfite sequencing identifies sex-specific methylation differences in the human placenta. Epigenetics. 
 
 
 ### Links ###
