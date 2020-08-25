@@ -111,22 +111,22 @@ sampleTable.champ     <- as.data.frame(myLoad$pd)
 #
 # Sex determined from paired RNA-Seq experiment
 #
-sampleTable.champ$Sex <- sampleTable.champ$Sample_Name
-sampleTable.champ$Sex <- gsub("first_63_oxBS",  "M", sampleTable.champ$Sex)
-sampleTable.champ$Sex <- gsub("first_64_oxBS",  "F", sampleTable.champ$Sex)
-sampleTable.champ$Sex <- gsub("first_65_oxBS",  "F", sampleTable.champ$Sex)
-sampleTable.champ$Sex <- gsub("first_66_oxBS",  "M", sampleTable.champ$Sex)
-sampleTable.champ$Sex <- gsub("first_67_oxBS",  "M", sampleTable.champ$Sex)
-sampleTable.champ$Sex <- gsub("first_69_oxBS",  "F", sampleTable.champ$Sex)
-sampleTable.champ$Sex <- gsub("first_70_oxBS",  "F", sampleTable.champ$Sex)
-
-sampleTable.champ$Sex <- gsub("second_71_oxBS", "M", sampleTable.champ$Sex)
-sampleTable.champ$Sex <- gsub("second_72_oxBS", "M", sampleTable.champ$Sex)
-sampleTable.champ$Sex <- gsub("second_73_oxBS", "F", sampleTable.champ$Sex)
-sampleTable.champ$Sex <- gsub("second_74_oxBS", "M", sampleTable.champ$Sex)
-sampleTable.champ$Sex <- gsub("second_75_oxBS", "M", sampleTable.champ$Sex)
-sampleTable.champ$Sex <- gsub("second_76_oxBS", "M", sampleTable.champ$Sex)
-sampleTable.champ$Sex <- gsub("second_77_oxBS", "X", sampleTable.champ$Sex)
+# sampleTable.champ$Sex <- sampleTable.champ$Sample_Name
+# sampleTable.champ$Sex <- gsub("first_63_oxBS",  "M", sampleTable.champ$Sex)
+# sampleTable.champ$Sex <- gsub("first_64_oxBS",  "F", sampleTable.champ$Sex)
+# sampleTable.champ$Sex <- gsub("first_65_oxBS",  "F", sampleTable.champ$Sex)
+# sampleTable.champ$Sex <- gsub("first_66_oxBS",  "M", sampleTable.champ$Sex)
+# sampleTable.champ$Sex <- gsub("first_67_oxBS",  "M", sampleTable.champ$Sex)
+# sampleTable.champ$Sex <- gsub("first_69_oxBS",  "F", sampleTable.champ$Sex)
+# sampleTable.champ$Sex <- gsub("first_70_oxBS",  "F", sampleTable.champ$Sex)
+# 
+# sampleTable.champ$Sex <- gsub("second_71_oxBS", "M", sampleTable.champ$Sex)
+# sampleTable.champ$Sex <- gsub("second_72_oxBS", "M", sampleTable.champ$Sex)
+# sampleTable.champ$Sex <- gsub("second_73_oxBS", "F", sampleTable.champ$Sex)
+# sampleTable.champ$Sex <- gsub("second_74_oxBS", "M", sampleTable.champ$Sex)
+# sampleTable.champ$Sex <- gsub("second_75_oxBS", "M", sampleTable.champ$Sex)
+# sampleTable.champ$Sex <- gsub("second_76_oxBS", "M", sampleTable.champ$Sex)
+# sampleTable.champ$Sex <- gsub("second_77_oxBS", "X", sampleTable.champ$Sex)
 
 
 
@@ -138,6 +138,8 @@ message("+----------------------------------------------------------------------
 myQC   <- champ.QC()
 
 myNorm <- champ.norm()
+
+myNorm <- champ.runCombat(beta=myNorm,pd=myLoad$pd,batchname=c("Sex"))
 
 
 message("+-------------------------------------------------------------------------------")
@@ -265,11 +267,11 @@ write.csv(first_oxBS_vs_second_oxBS_DMR$BumphunterDMR,
 
 
 # DMRcate
-first_oxBS_vs_second_oxBS_DMRcate <- champ.DMR(beta=myNorm, pheno=myLoad$pd$Sample_Group, method="DMRcate",
-                                               compare.group=c("first_oxBS", "second_oxBS"), arraytype="EPIC")
+#first_oxBS_vs_second_oxBS_DMRcate <- champ.DMR(beta=myNorm, pheno=myLoad$pd$Sample_Group, method="DMRcate",
+#                                               compare.group=c("first_oxBS", "second_oxBS"), arraytype="EPIC")
 
-head(first_oxBS_vs_second_oxBS_DMRcate$DMRcateDMR)
-nrow(first_oxBS_vs_second_oxBS_DMRcate$DMRcateDMR)
+#head(first_oxBS_vs_second_oxBS_DMRcate$DMRcateDMR)
+#nrow(first_oxBS_vs_second_oxBS_DMRcate$DMRcateDMR)
 
 message("+-------------------------------------------------------------------------------")
 message("+ Calculate DMBs using true mC (oxBS)")
@@ -285,8 +287,76 @@ write.csv(first_oxBS_vs_second_oxBS_DMB$Block,
           file=paste0(baseDir, "/", GitHubDir, "/Data/", Project, "_first_vs_second_DMBs_using_oxBS", ".csv"))
 
 
+message("+-------------------------------------------------------------------------------")
+message("+ Annotate enrichments")
+message("+-------------------------------------------------------------------------------")
+
+myGSEA <- champ.GSEA(beta=myNorm,
+                     DMP=first_oxBS_vs_second_oxBS_DMP[[1]], 
+                     DMR=first_oxBS_vs_second_oxBS_DMR, 
+                     arraytype="EPIC",adjPval=0.05, method="fisher")
+
+myEpiMod <- champ.EpiMod(beta=myNorm,pheno=myLoad$pd$Sample_Group)
 
 
+library("IlluminaHumanMethylationEPICanno.ilm10b4.hg19")
+library("missMethyl")
+ann     <- getAnnotation(IlluminaHumanMethylationEPICanno.ilm10b4.hg19)
+allcpgs <- rownames(ann)
+sigcpgs <- rownames(first_oxBS_vs_second_oxBS_DMP[[1]])
+
+gst     <- gometh(sig.cpg = sigcpgs, all.cpg = allcpgs, collection = "GO", array.type="EPIC",
+                  plot.bias = TRUE, prior.prob = TRUE, anno = ann)
+
+head(gst)
+
+
+library("GenomicRanges")
+head(first_oxBS_vs_second_oxBS_DMR)
+first_oxBS_vs_second_oxBS_DMR_granges <- makeGRangesFromDataFrame(first_oxBS_vs_second_oxBS_DMR$BumphunterDMR,
+                                                                  keep.extra.columns=F, ignore.strand=F, seqinfo=NULL,
+                                                                  seqnames.field="seqnames",start.field="start",
+                                                                  end.field=c("end", "stop"),strand.field="strand", 
+                                                                  starts.in.df.are.0based=F)
+head(first_oxBS_vs_second_oxBS_DMR_granges, 10)
+
+gst_regions <- goregion(regions = first_oxBS_vs_second_oxBS_DMR_granges, all.cpg = allcpgs, 
+                        collection = "GO", array.type="EPIC",
+                        plot.bias = TRUE, prior.prob = TRUE, anno = ann)
+head(gst_regions)
+table(gst_regions$FDR<0.05)
+subset(topGSA(gst_regions, number=200), ONTOLOGY=="BP")[c(1:10),]
+subset(topGSA(gst_regions, number=200), ONTOLOGY=="MF")[c(1:10),]
+
+#
+# Annotated to closest gene
+# Filter to just gene body and promoer
+#
+DMRs_closest <- read.table(paste0(baseDir, "/Data/CTR_EPIC.First_Second_first_vs_second_DMRs_using_oxBS.srt.ann.TEST.bed"), 
+                           sep="\t", header=F, stringsAsFactors=T)
+colnames(DMRs_closest) <- c("chr", "start", "end", "name", "value", "p.val", "strand", "ensembl_gene_id", "dist2gene")
+
+DMRs_closest_filt_Prom_GB     <- subset(DMRs_closest, p.val<=0.05 & dist2gene < 1 & dist2gene >= -1500)
+DMRs_closest_filt_Prom_GB$chr <- gsub("^", "chr", DMRs_closest_filt_Prom_GB$chr)
+
+
+#dupe = DMRs_closest_filt_Prom_GB[,c('ensembl_gene_id')] 
+#DMRs_closest_filt_Prom_GB[duplicated(dupe) | duplicated(dupe, fromLast=TRUE),]
+
+DMRs_closest_filt_Prom_GB_granges <- makeGRangesFromDataFrame(DMRs_closest_filt_Prom_GB,
+                                                                  keep.extra.columns=F, ignore.strand=F, seqinfo=NULL,
+                                                                  seqnames.field="chr",start.field="start",
+                                                                  end.field="end",strand.field="strand", 
+                                                                  starts.in.df.are.0based=F)
+
+gst_regionsProm_GB <- goregion(regions = DMRs_closest_filt_Prom_GB_granges, 
+                               all.cpg = allcpgs, collection = "GO", array.type="EPIC",
+                               plot.bias = TRUE, prior.prob = TRUE, anno = ann)
+
+head(gst_regionsProm_GB)
+table(gst_regionsProm_GB$FDR<0.05)
+subset(topGSA(gst_regionsProm_GB, number=200), ONTOLOGY=="BP")[c(1:10),]
+subset(topGSA(gst_regionsProm_GB, number=200), ONTOLOGY=="MF")[c(1:10),]
 
 
 message("+-------------------------------------------------------------------------------")
@@ -391,6 +461,39 @@ plt.meth.corr
 dev.off()
 
 
+AllProbes_Corr <- ggplot(data=meth_corr, aes(x=first_oxBS_meanBeta, y=second_oxBS_meanBeta, 
+                           colour=abs(first_oxBS_meanBeta-second_oxBS_meanBeta), label=gene)) +
+  geom_point(data=subset(meth_corr, abs(first_oxBS_meanBeta-second_oxBS_meanBeta) <  0.2), colour="darkgrey",  alpha=.25, size=.5) +
+  geom_point(data=subset(meth_corr, abs(first_oxBS_meanBeta-second_oxBS_meanBeta) >= 0.2), colour="purple", alpha=.25, size=.5) +
+  
+  geom_abline(intercept = threshold, slope = 1, linetype="dashed") +
+  geom_abline(intercept = 0, slope = 1, linetype="dashed") +
+  geom_abline(intercept = -(threshold), slope = 1, linetype="dashed") +
+  
+  scale_x_continuous(name=bquote("First Trimester ("*beta~"value)"),  
+                     limits=c(0,1.01), expand=c(0,0), breaks=seq(0,1,0.2)) +
+  scale_y_continuous(name=bquote("Second Trimester ("*beta~"value)"), 
+                     limits=c(0,1.01), expand=c(0,0), breaks=seq(0,1,0.2)) +
+  coord_fixed() +
+  ggtitle("All CpGs") +
+  theme_cowplot(12) +
+  theme(text=element_text(size=16,  family="sans"),
+        legend.text=element_text(size=8),
+        title=element_text(size=10, face="bold"), 
+        plot.title = element_text(size=10, face="bold", hjust = 0.5),
+        axis.text.y=element_text(size=10),
+        axis.title=element_text(size=12),
+        strip.background = element_rect(colour=NULL, fill="white"),
+        axis.title.x=element_blank(), axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        legend.position="none") 
+
+pdf(paste0(baseDir, "/", GitHubDir, "/Figures/", 
+           Project, ".AllProbes.Correlations.pdf"), width=2.5,height=2.5)
+par(bg=NA)
+AllProbes_Corr
+dev.off()
+
 
 message("+-------------------------------------------------------------------------------")
 message("+ Plot methyaltion for specific genomic features")
@@ -492,7 +595,7 @@ message("+----------------------------------------------------------------------
 message("+ Plot Specific Genomic Feature methylation for  1st and 2nd")
 message("+-------------------------------------------------------------------------------")
 
-
+head(feature.summary.tbl)
 feature.summary.tbl2 <- feature.summary.tbl
 head(feature.summary.tbl2)
 feature.summary.tbl2$Feature <- gsub("island", "CpG Islands", feature.summary.tbl2$Feature)
@@ -624,6 +727,71 @@ ggplot(feature.summary.tbl2, aes(x =  (value), group=variable, colour=variable, 
         legend.position="right")
 dev.off()
 
+
+
+#head(feature.summary.tbl2)
+#feature.summary.tbl2$Feature <- gsub("island", "CpG Islands", feature.summary.tbl2$Feature)
+#feature.summary.tbl2$Feature <- gsub("Body", "Gene Bodies", feature.summary.tbl2$Feature)
+#feature.summary.tbl2$Feature <- gsub("promoter", "Promoters", feature.summary.tbl2$Feature)
+head(myNorm.probes.ann)
+
+
+pre_post_probe_corr                   <- myNorm.probes.ann[,c("probe_id", "feature", "promoter", "cgi", 
+                                                              "first_oxBS_meanBeta", "second_oxBS_meanBeta")]
+
+pre_post_probe_corr_island            <- subset(pre_post_probe_corr, cgi=="island") 
+pre_post_probe_corr_island$Feature    <- "CGI"
+pre_post_probe_corr_body              <- subset(pre_post_probe_corr, feature=="Body") 
+pre_post_probe_corr_body$Feature      <- "Body"
+pre_post_probe_corr_promoter          <- subset(pre_post_probe_corr, promoter=="promoter") 
+pre_post_probe_corr_promoter$Feature  <- "Promoter"
+
+pre_post_probe_corr_Features          <- rbind(pre_post_probe_corr_island, pre_post_probe_corr_body, pre_post_probe_corr_promoter)
+
+head(pre_post_probe_corr_Features)
+pre_post_probe_corr_Features$MethDiff <- abs(pre_post_probe_corr_Features$first_oxBS_meanBeta - 
+                                             pre_post_probe_corr_Features$second_oxBS_meanBeta)
+
+pre_post_probe_corr_Features$Feature_ordered = factor(pre_post_probe_corr_Features$Feature, levels=c("Promoter","Body","CGI" ))
+head(pre_post_probe_corr_Features)
+
+
+Features_Corr <- ggplot(pre_post_probe_corr_Features, aes(x=first_oxBS_meanBeta, y=second_oxBS_meanBeta)) +
+  geom_point(data=subset(pre_post_probe_corr_Features, MethDiff <  0.2), colour="darkgrey",  alpha=.25, size=.5) +
+  geom_point(data=subset(pre_post_probe_corr_Features, MethDiff >= 0.2), colour="purple", alpha=.25, size=.5) +
+  
+  geom_abline(intercept = threshold, slope = 1, linetype="dashed") +
+  geom_abline(intercept = 0, slope = 1, linetype="dashed") +
+  geom_abline(intercept = -(threshold), slope = 1, linetype="dashed") +
+  
+  scale_x_continuous(name=bquote("First Trimester ("*beta~"value)"),  
+                     limits=c(0,1.01), expand=c(0,0), breaks=seq(0,1,0.2)) +
+  scale_y_continuous(name=bquote("Second Trimester ("*beta~"value)"), 
+                     limits=c(0,1.01), expand=c(0,0), breaks=seq(0,1,0.2)) +
+  facet_wrap(~Feature_ordered, nrow=3) +
+  coord_fixed() +
+  theme_cowplot(12) +
+  theme(text=element_text(size=12,  family="sans"),
+        legend.text=element_text(size=8),
+        strip.text.x=element_text(size=10, face="bold"), 
+        axis.text.y=element_text(size=10),
+        axis.text.x=element_text(size=10), 
+        strip.background = element_rect(colour=NULL, fill="white"),
+        #  panel.spacing = unit(1, "lines"),
+        legend.position="none") 
+
+pdf(paste0(baseDir, "/", GitHubDir, "/Figures/", 
+           Project, ".GenomicFeatureSelected.Correlations.pdf"), width=3,height=6)
+par(bg=NA)
+Features_Corr
+dev.off()
+  
+
+pdf(paste0(baseDir, "/", GitHubDir, "/Figures/", 
+           Project, ".All.Feature.Correlations.pdf"), width=3,height=9)
+par(bg=NA)
+plot_grid(AllProbes_Corr, Features_Corr, ncol=1, rel_heights = c(1,3.1))
+dev.off()
 
 message("+-------------------------------------------------------------------------------")
 message("+ END OF SCRIPT")

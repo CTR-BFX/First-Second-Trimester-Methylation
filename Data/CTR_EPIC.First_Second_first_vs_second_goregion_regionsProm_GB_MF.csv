@@ -1,0 +1,26 @@
+"","ONTOLOGY","TERM","N","DE","P.DE","FDR"
+"GO:0043565","MF","sequence-specific DNA binding",1120,48,1.68664112924396e-11,3.8619021936299e-07
+"GO:0000977","MF","RNA polymerase II regulatory region sequence-specific DNA binding",777,36,3.08122747734805e-09,1.41101731097677e-05
+"GO:0001012","MF","RNA polymerase II regulatory region DNA binding",783,36,3.87072215900955e-09,1.47572667297463e-05
+"GO:0000976","MF","transcription regulatory region sequence-specific DNA binding",826,37,4.51154592777323e-09,1.47572667297463e-05
+"GO:1990837","MF","sequence-specific double-stranded DNA binding",876,37,2.08385264435378e-08,5.96424674972106e-05
+"GO:0000981","MF","DNA-binding transcription factor activity, RNA polymerase II-specific",1582,49.5,2.40560547165725e-08,6.1201276093929e-05
+"GO:0044212","MF","transcription regulatory region DNA binding",941,38,5.6949074944442e-08,0.000108097587422273
+"GO:0001067","MF","regulatory region nucleic acid binding",942,38,5.95989668178231e-08,0.000108097587422273
+"GO:0003700","MF","DNA-binding transcription factor activity",1676,50.5,6.18109599598136e-08,0.000108097587422273
+"GO:0003690","MF","double-stranded DNA binding",967,38,6.60945199769326e-08,0.000108097587422273
+"GO:0140110","MF","transcription regulator activity",2024,51.5,1.69056106843165e-05,0.0101865202062841
+"GO:0003677","MF","DNA binding",2464,56,3.01067110735223e-05,0.0149859426837052
+"GO:0001228","MF","DNA-binding transcription activator activity, RNA polymerase II-specific",434,18,0.000154175834837454,0.0551588139105187
+"GO:0071837","MF","HMG box domain binding",16,4,0.000243408711018949,0.0796189893742983
+"GO:0001227","MF","DNA-binding transcription repressor activity, RNA polymerase II-specific",241,12,0.000427468601485462,0.127113617768995
+"GO:0003707","MF","steroid hormone receptor activity",56,6,0.000455237243916395,0.131943888277895
+"GO:0000978","MF","RNA polymerase II proximal promoter sequence-specific DNA binding",535,19,0.000757455098374243,0.188515754211685
+"GO:0016672","MF","oxidoreductase activity, acting on a sulfur group of donors, quinone or similar compound as acceptor",3,2,0.000894417395422474,0.211128609309159
+"GO:0000987","MF","proximal promoter sequence-specific DNA binding",549,19,0.00110630380955468,0.241879676590499
+"GO:0038023","MF","signaling receptor activity",1410,27,0.00266477730277996,0.351901445972576
+"GO:0030284","MF","estrogen receptor activity",5,2,0.00279945151197589,0.358041719982186
+"GO:0031698","MF","beta-2 adrenergic receptor binding",5,2,0.00336789485915227,0.416836154540592
+"GO:0043027","MF","cysteine-type endopeptidase inhibitor activity involved in apoptotic process",24,3,0.0036269175791386,0.446481353814713
+"GO:0097677","MF","STAT family protein binding",8,2,0.00388777442492517,0.466064769672836
+"GO:0042562","MF","hormone binding",101,6,0.00408872068293282,0.4728254418036

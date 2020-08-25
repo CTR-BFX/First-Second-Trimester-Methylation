@@ -40,6 +40,7 @@ library("ggrepel")
 library("ComplexHeatmap")
 library("circlize")
 library("dplyr")
+library("cowplot")
 
 baseDir <- "~/Documents/CTR-Data/CTR_EPIC/GitHub_First_Second"
 setwd(baseDir)
@@ -56,17 +57,22 @@ head(ensEMBL2id)
 nrow(ensEMBL2id)
 
 
-DMRs <- read.table("~/Documents/CTR-Data/CTR_EPIC/test.DMRs.srt.ann.bed", sep="\t", header=F, stringsAsFactors=T)
+#DMRs <- read.table("~/Documents/CTR-Data/CTR_EPIC/test.DMRs.srt.ann.bed", sep="\t", header=F, stringsAsFactors=T)
+DMRs <- read.table(paste0(baseDir, "/Data/CTR_EPIC.First_Second_first_vs_second_DMRs_using_oxBS.srt.ann.bed"), 
+                   sep="\t", header=F, stringsAsFactors=T)
 colnames(DMRs) <- c("chr", "start", "end", "name", "value", "p.val", "strand", "ensembl_gene_id", "dist2gene")
 head(DMRs)
 nrow(DMRs)
 
-RNAs <- read.csv("~/Documents/CTR-Data/CTR_EPIC/CTR_gjb2_0001_STAR_shr_BlockSex_deseq2_results.edited.csv", header=T, stringsAsFactors=F)
+RNAs <- read.csv(paste0(baseDir, "/Data/CTR_gjb2_0001_STAR_shr_BlockSex_deseq2_results.edited.csv"), 
+                 header=T, stringsAsFactors=F)
 RNAs$padj           <- as.numeric(RNAs$padj)
 RNAs$log2FoldChange <- as.numeric(RNAs$log2FoldChange)
 head(RNAs)
+nrow(RNAs)
 
-RNA.counts            <- read.csv("~/Documents/CTR-Data/CTR_EPIC/CTR_gjb2_0001_STAR_DESeq2_shrinkage___bulk_vs_scRNA_seq_BlockSex_deseq2_counts_norm.csv", header=T, stringsAsFactors=F)
+RNA.counts            <- read.csv(paste0(baseDir, "/Data/CTR_gjb2_0001_STAR_DESeq2_shrinkage___bulk_vs_scRNA_seq_BlockSex_deseq2_counts_norm.csv"), 
+                                  header=T, stringsAsFactors=F)
 RNA.counts$ensembl_gene_id <- RNA.counts$X
 
 RNA.counts[,c(2:15)] <- log2(RNA.counts[,c(2:15)]+1)
@@ -124,19 +130,37 @@ DMRs.RNAs <- subset(DMRs.RNAs, external_gene_name!="HLA-L")
 DMRs.RNAs <- subset(DMRs.RNAs, external_gene_name!="HLA-H")
 
 
-nrow( subset(DMRs.RNAs, abs(log2FoldChange > 1)  & abs(value) > 0.25 & padj <= 0.05))
+nrow(DMRs.RNAs)
 
-meth_thresh <- 0.2
+nrow( subset(DMRs.RNAs, abs(log2FoldChange > 1)  & abs(value) > 0.2 & padj <= 0.05))
+
+meth_thresh <- 0.7
+
+
+
+
+xy           <- data.frame(DMRs.RNAs$value,DMRs.RNAs$log2FoldChange)
+colnames(xy) <- c("x","y")
+cor.pearson  <- cor.test(xy$x, xy$y, method = c("pearson"))
+                         
+r2           <- paste0("R^2 == ", as.character(format(summary(lm(y ~ x, xy))$r.squared, digits=2)))
+
+pearson      <- paste0("Pearsons~p == ", as.character(format(cor.pearson$p.value, digits=2)))
+
+
+
+
+
 
 pdf(paste0(baseDir, "/Figures/", Project, ".Correlation_DMR_RNA.pdf"),width=4.5,height=4.5, onefile=FALSE)
 par(bg=NA)
 ggplot(DMRs.RNAs, aes(x=value, y=log2FoldChange, label=external_gene_name)) +
   geom_vline(xintercept = 0,  colour="black", linetype='solid', alpha=.5) +
   geom_hline(yintercept = 0,  colour="black", linetype='solid', alpha=.5) +
-  geom_vline(xintercept = meth_thresh,  colour="red", linetype='dashed') +
-  geom_vline(xintercept = -meth_thresh, colour="red", linetype='dashed') +
-  geom_hline(yintercept = 1,  colour="red", linetype='dashed') +
-  geom_hline(yintercept = -1, colour="red", linetype='dashed') +
+  geom_vline(xintercept = meth_thresh,  colour="red", linetype='solid', alpha=.5) +
+  geom_vline(xintercept = -meth_thresh, colour="red", linetype='solid', alpha=.5) +
+  geom_hline(yintercept = 1,  colour="red", linetype='solid', alpha=.5) +
+  geom_hline(yintercept = -1, colour="red", linetype='solid', alpha=.5) +
   
   geom_point(data=subset(DMRs.RNAs, abs(log2FoldChange) < 1 | abs(value) < meth_thresh | padj > 0.05), 
              colour='grey', size=1.5) +
@@ -152,10 +176,14 @@ ggplot(DMRs.RNAs, aes(x=value, y=log2FoldChange, label=external_gene_name)) +
   geom_text_repel(data=subset(DMRs.RNAs, abs(log2FoldChange) > 1 & abs(value) > meth_thresh & padj <= 0.05 & dist2gene < 1000), 
                   segment.alpha=0.6, size=2.75, force=10 ) +
   
-  xlab(bquote("Methylation Difference (DMRs, "*beta~"value)")  )+
+  xlab(bquote("Methylation Difference (DMRs)")  ) +
   ylab(bquote("Expression Difference (log"[2]~"Fold Change)") ) +
-  scale_x_continuous(breaks=seq(-2,1,0.2)) +
-  scale_y_continuous(breaks=seq(-3,4,1)) +
+  scale_x_continuous(breaks=seq(-2,2.2,0.2), limits=c(-2,2.2)) +
+ # scale_y_continuous(breaks=seq(-3,4,1)) +
+  #geom_smooth(method='lm', se=F, fullrange=T, alpha=.5) +
+  stat_smooth(geom='line', method='lm', colour='blue', size=1, alpha=0.5, se=FALSE, na.rm =T) +
+  annotate("text", label = r2,      x = -2, y = -2.4, size = 3.5, colour = "blue", parse=TRUE, hjust = 0) +
+  annotate("text", label = pearson, x = -2, y = -2.7, size = 3.5, colour = "blue", parse=TRUE, hjust = 0) +
   #theme_bw() +
   theme_cowplot(12) +
   theme(axis.text=element_text(size=10), 
@@ -211,33 +239,32 @@ rowsize <- 0.15
 
 
 DMRs.RNAs.purple <- subset(DMRs.RNAs, log2FoldChange > 1 & value < -0.25 & padj <= 0.05 & dist2gene < 1000)
-hm.purple        <- functionMakeHeatmaps(DMRs.RNAs.purple,-1,1,-1.5,1.5)
-pdf(paste(Project, "_Heatmap_purple.pdf", sep=""),width=4,height=(extra+(nrow(DMRs.RNAs.purple)*rowsize)), onefile=FALSE)
-par(bg=NA)
-hm.purple
-dev.off()
+#hm.purple        <- functionMakeHeatmaps(DMRs.RNAs.purple,-1,1,-1.5,1.5)
+#pdf(paste(Project, "_Heatmap_purple.pdf", sep=""),width=4,height=(extra+(nrow(DMRs.RNAs.purple)*rowsize)), onefile=FALSE)
+#par(bg=NA)
+#hm.purple
+#dev.off()
 
 DMRs.RNAs.green <- subset(DMRs.RNAs, log2FoldChange < -1 & value < -0.25 & padj <= 0.05 & dist2gene < 1000)
-hm.green        <- functionMakeHeatmaps(DMRs.RNAs.green,-1,1,-1.5,1.5)
-pdf(paste(Project, "_Heatmap_green.pdf", sep=""),width=4,height=(extra+(nrow(DMRs.RNAs.green)*rowsize)), onefile=FALSE)
-par(bg=NA)
-hm.green
-dev.off()
+#hm.green        <- functionMakeHeatmaps(DMRs.RNAs.green,-1,1,-1.5,1.5)
+#pdf(paste(Project, "_Heatmap_green.pdf", sep=""),width=4,height=(extra+(nrow(DMRs.RNAs.green)*rowsize)), onefile=FALSE)
+#par(bg=NA)
+#hm.green
+#dev.off()
 
 DMRs.RNAs.red <- subset(DMRs.RNAs, log2FoldChange < -1 & value > 0.25 & padj <= 0.05 & dist2gene < 1000)
-hm.red        <- functionMakeHeatmaps(DMRs.RNAs.red,-1,1,-1.5,1.5)
-pdf(paste(Project, "_Heatmap_red.pdf", sep=""),width=4,height=(extra+(nrow(DMRs.RNAs.red)*rowsize)), onefile=FALSE)
-par(bg=NA)
-hm.red
-dev.off()
+#hm.red        <- functionMakeHeatmaps(DMRs.RNAs.red,-1,1,-1.5,1.5)
+#pdf(paste(Project, "_Heatmap_red.pdf", sep=""),width=4,height=(extra+(nrow(DMRs.RNAs.red)*rowsize)), onefile=FALSE)
+#par(bg=NA)
+#hm.red
+#dev.off()
 
 DMRs.RNAs.blue <- subset(DMRs.RNAs, log2FoldChange > 1 & value > 0.25 & padj <= 0.05 & dist2gene < 1000)
-hm.blue        <- functionMakeHeatmaps(DMRs.RNAs.blue,-1,1,-1.5,1.5)
-pdf(paste(Project, "_Heatmap_blue.pdf", sep=""),width=4,height=(extra+(nrow(DMRs.RNAs.blue)*rowsize)), onefile=FALSE)
-par(bg=NA)
-hm.blue
-dev.off()
-
+#hm.blue        <- functionMakeHeatmaps(DMRs.RNAs.blue,-1,1,-1.5,1.5)
+#pdf(paste(Project, "_Heatmap_blue.pdf", sep=""),width=4,height=(extra+(nrow(DMRs.RNAs.blue)*rowsize)), onefile=FALSE)
+#par(bg=NA)
+#hm.blue
+#dev.off()
 
 
 
@@ -258,9 +285,12 @@ enrichR.list.blue[,c("ensembl_gene_id", "external_gene_name", "entrezgene_id")]
 
 cat( paste( enrichR.list.purple[,c("ensembl_gene_id", "external_gene_name", "entrezgene_id")]$external_gene_name, collapse='\n' ) )
 
-xx <- DMRs.RNAs.purple.summary[, c("external_gene_name", "value")]
+cat( paste( enrichR.list.purple[,c("ensembl_gene_id", "external_gene_name", "entrezgene_id")]$ensembl_gene_id, collapse='\n' ) )
+
+
+xx <- DMRs.RNAs.purple.summary[, c("external_gene_name", "meth_diff")]
 rownames(xx) <- xx$external_gene_name
-print( xx[,c("value"), drop=F] )
+print( xx[,c("meth_diff"), drop=F] )
 
 
 write.table(xx[,c("value"), drop=F], paste0(baseDir, "/Figures/", Project, ".Correlation_DMR_RNA.purple.txt"), 
@@ -303,4 +333,120 @@ DMRs.RNAs.summary <- rbind( DMRs.RNAs.purple.summary, DMRs.RNAs.green.summary, D
 
 head(DMRs.RNAs.summary)
 write.csv(DMRs.RNAs.summary, file=paste0(Project, "_Methylation_RNA_Correlations", ".csv"))
+
+
+
+library(eulerr)
+library(venneuler)
+
+Sung_Sex_DMRs <- read.table(paste0(baseDir, "/Data/", "Sung_DMRList_SexAssociated.txt"), header=F)
+colnames(Sung_Sex_DMRs) <- c("Feature", "ensembl_gene_id")
+Sung_Sex_DMRs$Feature <- gsub("Gene-bodies", "Body", Sung_Sex_DMRs$Feature)
+head(Sung_Sex_DMRs)
+
+Sung_Sex_DEGs <- read.table(paste0(baseDir, "/Data/", "Sung_DEGList_SexAssociated.txt"), header=F)
+colnames(Sung_Sex_DEGs) <- c("ensembl_gene_id")
+head(Sung_Sex_DEGs)
+
+
+CBX3_500bpUP <- read.table(paste0(baseDir, "/Data/", "DEG_with_motif_CBX3_500bpUP.csv"), sep=",", header=T)
+CBX3_10ktss  <- read.table(paste0(baseDir, "/Data/", "DEG_with_motif_CBX3_10ktss.csv"),  sep=",", header=T)
+BCL6_10ktss  <- read.table(paste0(baseDir, "/Data/", "DEG_with_motif_BCL6_10ktss.csv"),  sep=",", header=T)
+
+
+DMRs.RNAs.sig <- rbind( DMRs.RNAs.purple, DMRs.RNAs.green, DMRs.RNAs.red, DMRs.RNAs.blue  )
+head(DMRs.RNAs.sig)
+
+nrow(DMRs.RNAs.sig)
+nrow(DMRs.RNAs.purple)
+nrow(DMRs.RNAs.green)
+nrow(DMRs.RNAs.red)
+nrow(DMRs.RNAs.blue)
+
+
+
+
+library(VennDiagram)
+library(RColorBrewer)
+myCol <- brewer.pal(3, "Paired")
+
+venn.diagram(
+  x = list( unique(Sung_Sex_DMRs$ensembl_gene_id), unique(DMRs.RNAs$ensembl_gene_id), unique(DMRs.RNAs.sig$ensembl_gene_id) ),
+  category.names = c("Sex Specific DMRs\n(promoter & gene body)", "DMR Vs DEG" , "DMR Vs DEG\n(above thresholds)"),
+  filename = paste0(baseDir, "/Figures/", Project, ".DMRVsDEGVsSexSpecificDMR.Venn.png"),
+  output=TRUE,
+  imagetype="png" ,
+  height = 500 , 
+  width = 500 , 
+  resolution = 300,
+  compression = "lzw",
+  margin = .2,
+  lwd = 2,
+  lty = 'blank',
+  fill = myCol,
+  cex = .3,
+  fontfamily = "sans",
+  cat.cex = 0.3,
+  cat.fontface = "bold",
+  cat.default.pos = "outer",
+  cat.fontfamily = "sans",
+  rotation = 3,
+scaled=T
+)  
+
+
+venn.diagram(
+  x = list( unique(Sung_Sex_DEGs$ensembl_gene_id), unique(DMRs.RNAs$ensembl_gene_id), unique(DMRs.RNAs.sig$ensembl_gene_id) ),
+  category.names = c("Sex Specific DEGs", "DMR Vs DEG" , "DMR Vs DEG\n(above thresholds)"),
+  filename = paste0(baseDir, "/Figures/", Project, ".DMRVsDEGVsSexSpecificDEGs.Venn.png"),
+  output=TRUE,
+  imagetype="png" ,
+  height = 500 , 
+  width = 500 , 
+  resolution = 300,
+  compression = "lzw",
+  margin = .2,
+  lwd = 2,
+  lty = 'blank',
+  fill = myCol,
+  cex = .3,
+  fontfamily = "sans",
+  cat.cex = 0.3,
+  cat.fontface = "bold",
+  cat.default.pos = "outer",
+  cat.fontfamily = "sans",
+  rotation = 3,
+  scaled=T
+)  
+
+
+
+venn.diagram(
+  x = list( unique(CBX3_500bpUP$ensembl_gene_id), unique(DMRs.RNAs$ensembl_gene_id), unique(DMRs.RNAs.sig$ensembl_gene_id) ),
+  category.names = c("CBX3_500bpUP", "DMR Vs DEG" , "DMR Vs DEG\n(above thresholds)"),
+  filename = paste0(baseDir, "/Figures/", Project, ".DMRVsDEGVsCBX3_500bpUP.Venn.png"),
+  output=TRUE,  imagetype="png" , height = 500 ,  width = 500 ,  resolution = 300, compression = "lzw", margin = .2, 
+  lwd = 2, lty = 'blank', fill = myCol, cex = .3, fontfamily = "sans",
+  cat.cex = 0.3, cat.fontface = "bold", cat.default.pos = "outer", cat.fontfamily = "sans", rotation = 3, scaled=T
+)  
+
+# CBX3_10ktss  
+venn.diagram(
+  x = list( unique(CBX3_10ktss$ensembl_gene_id), unique(DMRs.RNAs$ensembl_gene_id), unique(DMRs.RNAs.sig$ensembl_gene_id) ),
+  category.names = c("CBX3_10ktss", "DMR Vs DEG" , "DMR Vs DEG\n(above thresholds)"),
+  filename = paste0(baseDir, "/Figures/", Project, ".DMRVsDEGVsCBX3_10ktss.Venn.png"),
+  output=TRUE,  imagetype="png" , height = 500 ,  width = 500 ,  resolution = 300, compression = "lzw", margin = .2, 
+  lwd = 2, lty = 'blank', fill = myCol, cex = .3, fontfamily = "sans",
+  cat.cex = 0.3, cat.fontface = "bold", cat.default.pos = "outer", cat.fontfamily = "sans", rotation = 3, scaled=T
+)  
+
+# BCL6_10ktss
+venn.diagram(
+  x = list( unique(BCL6_10ktss$ensembl_gene_id), unique(DMRs.RNAs$ensembl_gene_id), unique(DMRs.RNAs.sig$ensembl_gene_id) ),
+  category.names = c("BCL6_10ktss", "DMR Vs DEG" , "DMR Vs DEG\n(above thresholds)"),
+  filename = paste0(baseDir, "/Figures/", Project, ".DMRVsDEGVsBCL6_10ktss.Venn.png"),
+  output=TRUE,  imagetype="png" , height = 500 ,  width = 500 ,  resolution = 300, compression = "lzw", margin = .2, 
+  lwd = 2, lty = 'blank', fill = myCol, cex = .3, fontfamily = "sans",
+  cat.cex = 0.3, cat.fontface = "bold", cat.default.pos = "outer", cat.fontfamily = "sans", rotation = 3, scaled=T
+)  
 

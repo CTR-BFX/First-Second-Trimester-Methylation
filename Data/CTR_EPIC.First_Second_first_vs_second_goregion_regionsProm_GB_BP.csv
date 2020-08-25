@@ -1,0 +1,201 @@
+"","ONTOLOGY","TERM","N","DE","P.DE","FDR"
+"GO:0003002","BP","regionalization",351,26,3.98795251663545e-11,4.56560743867009e-07
+"GO:0009952","BP","anterior/posterior pattern specification",219,19,9.20218629291816e-10,7.02341531829823e-06
+"GO:0007389","BP","pattern specification process",446,27,1.58880809133913e-09,9.09473471684803e-06
+"GO:0048568","BP","embryonic organ development",428,25,2.91000656693869e-08,6.66304203631951e-05
+"GO:0048706","BP","embryonic skeletal system development",125,13,2.52077621130519e-07,0.000384788086068366
+"GO:0045165","BP","cell fate commitment",270,18,3.03861539360496e-07,0.000415708964444546
+"GO:0048598","BP","embryonic morphogenesis",585,28,3.08645341990535e-07,0.000415708964444546
+"GO:0021781","BP","glial cell fate commitment",14,5,1.17562678942876e-06,0.00149546258875279
+"GO:0009887","BP","animal organ morphogenesis",1065,39,1.29529324464887e-06,0.00156096470645922
+"GO:0021513","BP","spinal cord dorsal/ventral patterning",22,6,1.58313837246431e-06,0.00174077358964746
+"GO:0021510","BP","spinal cord development",106,11,1.59655174837737e-06,0.00174077358964746
+"GO:0009790","BP","embryo development",1015,37,1.79475078061522e-06,0.00186792766471576
+"GO:0021511","BP","spinal cord patterning",24,6,2.60359197214182e-06,0.00259193240809266
+"GO:0021515","BP","cell differentiation in spinal cord",54,8,3.21561977973255e-06,0.00306783525402234
+"GO:0001708","BP","cell fate specification",99,10,3.46068636287024e-06,0.0031695734260256
+"GO:0048704","BP","embryonic skeletal system morphogenesis",93,10,4.14203838617214e-06,0.00334959710640473
+"GO:0060579","BP","ventral spinal cord interneuron fate commitment",15,5,4.22428285808079e-06,0.00334959710640473
+"GO:0060581","BP","cell fate commitment involved in pattern specification",15,5,4.22428285808079e-06,0.00334959710640473
+"GO:0045944","BP","positive regulation of transcription by RNA polymerase II",1192,39,4.24240363740828e-06,0.00334959710640473
+"GO:0048562","BP","embryonic organ morphogenesis",288,17,5.79176067291943e-06,0.0044204648042612
+"GO:0045893","BP","positive regulation of transcription, DNA-templated",1523,45,7.32444907557832e-06,0.00540993259624248
+"GO:0021514","BP","ventral spinal cord interneuron differentiation",17,5,8.68460191713979e-06,0.00621410406552343
+"GO:0009792","BP","embryo development ending in birth or egg hatching",642,26,9.67207530903691e-06,0.0067109547985157
+"GO:0009953","BP","dorsal/ventral pattern formation",90,9,1.11333976990356e-05,0.00749007135764152
+"GO:0001501","BP","skeletal system development",514,23,1.14492072113138e-05,0.00749007135764152
+"GO:0048665","BP","neuron fate specification",34,6,1.18821741385537e-05,0.00755739281251288
+"GO:0021517","BP","ventral spinal cord development",48,7,1.38845850747911e-05,0.00859230660695927
+"GO:0043009","BP","chordate embryonic development",625,25,1.86076820065535e-05,0.0109246178180527
+"GO:0010628","BP","positive regulation of gene expression",1996,52,2.08903710671762e-05,0.0119581706581283
+"GO:0021953","BP","central nervous system neuron differentiation",183,13,2.32611052785638e-05,0.0129904762820311
+"GO:0021516","BP","dorsal spinal cord development",22,5,2.66095816791874e-05,0.0143264230872749
+"GO:1903508","BP","positive regulation of nucleic acid-templated transcription",1608,45,2.76141945318815e-05,0.0143264230872749
+"GO:1902680","BP","positive regulation of RNA biosynthetic process",1609,45,2.79099074370974e-05,0.0143264230872749
+"GO:0021913","BP","regulation of transcription from RNA polymerase II promoter involved in ventral spinal cord interneuron specification",4,3,2.81560483437729e-05,0.0143264230872749
+"GO:0021521","BP","ventral spinal cord interneuron specification",11,4,3.56665464156909e-05,0.0167370799193035
+"GO:0060573","BP","cell fate specification involved in pattern specification",11,4,3.56665464156909e-05,0.0167370799193035
+"GO:0009653","BP","anatomical structure morphogenesis",2726,68,3.5817658035807e-05,0.0167370799193035
+"GO:0051254","BP","positive regulation of RNA metabolic process",1693,46,4.2738235495099e-05,0.0195715475626257
+"GO:0048705","BP","skeletal system morphogenesis",237,14,5.58259597846357e-05,0.0250636666899765
+"GO:0010557","BP","positive regulation of macromolecule biosynthetic process",1866,48,6.74398417659097e-05,0.0294915352386168
+"GO:0006357","BP","regulation of transcription by RNA polymerase II",2651,60.5,6.82644611803594e-05,0.0294915352386168
+"GO:0009891","BP","positive regulation of biosynthetic process",2009,50,8.58032755514661e-05,0.0363821777833689
+"GO:0048663","BP","neuron fate commitment",65,7,8.75120973925344e-05,0.0364320817090338
+"GO:0006355","BP","regulation of transcription, DNA-templated",3445,72.5,9.73996419641634e-05,0.0398242786080973
+"GO:0009893","BP","positive regulation of metabolic process",3611,77,9.94063497834943e-05,0.0399317051051346
+"GO:0031328","BP","positive regulation of cellular biosynthetic process",1976,49,0.000125986172407998,0.0497362998211367
+"GO:0045665","BP","negative regulation of neuron differentiation",225,13,0.000138556365304536,0.0537716118030164
+"GO:0001704","BP","formation of primary germ layer",120,9,0.00014455430427823,0.0544009924511319
+"GO:0010604","BP","positive regulation of macromolecule metabolic process",3341,72,0.000148939568371531,0.0544009924511319
+"GO:0001763","BP","morphogenesis of a branching structure",196,12,0.000149118486127352,0.0544009924511319
+"GO:0035282","BP","segmentation",100,8,0.000149681727930354,0.0544009924511319
+"GO:1903506","BP","regulation of nucleic acid-templated transcription",3501,72.5,0.000166634176463467,0.0586988113612925
+"GO:0060850","BP","regulation of transcription involved in cell fate commitment",17,4,0.000173387922688068,0.060152473724071
+"GO:2001141","BP","regulation of RNA biosynthetic process",3510,72.5,0.000178049912302931,0.0608478931641822
+"GO:0045935","BP","positive regulation of nucleobase-containing compound metabolic process",1883,47,0.000208810889213974,0.0703109254460643
+"GO:0006366","BP","transcription by RNA polymerase II",2785,60.5,0.000234295140195278,0.0777486351456706
+"GO:0051961","BP","negative regulation of nervous system development",315,15,0.000289684038993766,0.0934210625470459
+"GO:0090596","BP","sensory organ morphogenesis",256,13,0.000323517083408863,0.102882925816844
+"GO:0070887","BP","cellular response to chemical stimulus",3256,67,0.000334954708041046,0.105061067808436
+"GO:0006351","BP","transcription, DNA-templated",3606,72.5,0.000351804163951171,0.108854864080946
+"GO:0007417","BP","central nervous system development",993,31,0.000382635085089012,0.116815940577108
+"GO:0060333","BP","interferon-gamma-mediated signaling pathway",89,7,0.000401931010166257,0.121092293944431
+"GO:0050768","BP","negative regulation of neurogenesis",295,14,0.000446336026963816,0.131022512940904
+"GO:0097377","BP","spinal cord interneuron axon guidance",2,2,0.000473861441469295,0.13395068426324
+"GO:0097378","BP","dorsal spinal cord interneuron axon guidance",2,2,0.000473861441469295,0.13395068426324
+"GO:0007626","BP","locomotory behavior",198,11,0.000505779222167675,0.141229595731381
+"GO:0097659","BP","nucleic acid-templated transcription",3650,72.5,0.000520797460420346,0.141990525011184
+"GO:0051252","BP","regulation of RNA metabolic process",3755,74.5,0.000520906848099728,0.141990525011184
+"GO:0009719","BP","response to endogenous stimulus",1650,41,0.00054743184510232,0.147465258321268
+"GO:0031325","BP","positive regulation of cellular metabolic process",3304,69,0.000562075017374843,0.148702935209568
+"GO:0007423","BP","sensory organ development",547,20,0.000565015301709061,0.148702935209568
+"GO:0032774","BP","RNA biosynthetic process",3667,72.5,0.000581149235029495,0.151211068573527
+"GO:0060255","BP","regulation of macromolecule metabolic process",6604,110.5,0.000639121866631197,0.164426667193871
+"GO:0019219","BP","regulation of nucleobase-containing compound metabolic process",4069,78.5,0.000662952856698098,0.168662572886848
+"GO:0048518","BP","positive regulation of biological process",6087,111,0.000717491118066531,0.180531803630432
+"GO:0010001","BP","glial cell differentiation",218,11,0.000765851337931094,0.188555893382884
+"GO:0007188","BP","adenylate cyclase-modulating G protein-coupled receptor signaling pathway",220,10,0.000843673085352662,0.205506198248084
+"GO:0051173","BP","positive regulation of nitrogen compound metabolic process",3175,66,0.000866676609289726,0.207516880564921
+"GO:0060322","BP","head development",766,25,0.000870053742159779,0.207516880564921
+"GO:0007498","BP","mesoderm development",133,8,0.000939542654880262,0.217318940272539
+"GO:0044344","BP","cellular response to fibroblast growth factor stimulus",143,8,0.000939624190373471,0.217318940272539
+"GO:0008284","BP","positive regulation of cell proliferation",937,25,0.00095961453451569,0.219722939968058
+"GO:0080090","BP","regulation of primary metabolic process",6088,106.5,0.00103265813555669,0.233390121271927
+"GO:0009889","BP","regulation of biosynthetic process",4335,80.5,0.00103969045594342,0.233390121271927
+"GO:0021912","BP","regulation of transcription from RNA polymerase II promoter involved in spinal cord motor neuron fate specification",3,2,0.00107844226915067,0.239738763463524
+"GO:0019933","BP","cAMP-mediated signaling",186,9,0.00110920059579868,0.241879676590499
+"GO:0060562","BP","epithelial tube morphogenesis",322,14,0.00114079045731712,0.244260015139043
+"GO:0010556","BP","regulation of macromolecule biosynthetic process",4071,76.5,0.00114443947869048,0.244260015139043
+"GO:0061138","BP","morphogenesis of a branching epithelium",182,10,0.00115211956304392,0.244260015139043
+"GO:0035270","BP","endocrine system development",127,8,0.00119347047628305,0.248173817932487
+"GO:0048729","BP","tissue morphogenesis",669,22,0.00119977076733314,0.248173817932487
+"GO:0071310","BP","cellular response to organic substance",2685,56,0.00120382694393369,0.248173817932487
+"GO:2000112","BP","regulation of cellular macromolecule biosynthetic process",3936,74.5,0.00121393490887184,0.248173817932487
+"GO:0001705","BP","ectoderm formation",4,2,0.00123752398365318,0.249579387230063
+"GO:0022008","BP","neurogenesis",1620,43.5,0.00124572179646221,0.249579387230063
+"GO:0071774","BP","response to fibroblast growth factor",150,8,0.00125351048309635,0.249579387230063
+"GO:0048699","BP","generation of neurons",1521,41,0.0013101250176479,0.256813150972292
+"GO:0051171","BP","regulation of nitrogen compound metabolic process",5919,103.5,0.00131227403868446,0.256813150972292
+"GO:0030182","BP","neuron differentiation",1363,38,0.00134597667682337,0.259637620774368
+"GO:0009954","BP","proximal/distal pattern formation",31,4,0.00135756885604038,0.259637620774368
+"GO:0021527","BP","spinal cord association neuron differentiation",14,3,0.00136072474529083,0.259637620774368
+"GO:0006939","BP","smooth muscle contraction",110,7,0.00138151229489988,0.261425512531591
+"GO:0097376","BP","interneuron axon guidance",3,2,0.00140121750279491,0.262980960340123
+"GO:0042127","BP","regulation of cell proliferation",1682,38,0.00149221689071925,0.276932255580809
+"GO:0031326","BP","regulation of cellular biosynthetic process",4256,78.5,0.00152958136804131,0.276932255580809
+"GO:0090131","BP","mesenchyme migration",5,2,0.00153704678691035,0.276932255580809
+"GO:0009888","BP","tissue development",2059,46,0.00154335755273411,0.276932255580809
+"GO:0010721","BP","negative regulation of cell development",343,14,0.00154441928208484,0.276932255580809
+"GO:0048505","BP","regulation of timing of cell differentiation",13,3,0.00159324266394077,0.276932255580809
+"GO:0071229","BP","cellular response to acid chemical",209,10,0.00159742623429088,0.276932255580809
+"GO:0071495","BP","cellular response to endogenous stimulus",1387,35,0.00161310160483466,0.276932255580809
+"GO:0007399","BP","nervous system development",2362,56.5,0.0016134777086198,0.276932255580809
+"GO:0019418","BP","sulfide oxidation",5,2,0.00161839736396496,0.276932255580809
+"GO:0070221","BP","sulfide oxidation, using sulfide:quinone oxidoreductase",5,2,0.00161839736396496,0.276932255580809
+"GO:0060332","BP","positive regulation of response to interferon-gamma",6,2,0.00163278396748086,0.276932255580809
+"GO:0060335","BP","positive regulation of interferon-gamma-mediated signaling pathway",6,2,0.00163278396748086,0.276932255580809
+"GO:0019222","BP","regulation of metabolic process",7115,115.5,0.00166085550696862,0.27962212164015
+"GO:0044107","BP","cellular alcohol metabolic process",6,2,0.00168546488183858,0.279652821735203
+"GO:0044108","BP","cellular alcohol biosynthetic process",6,2,0.00168546488183858,0.279652821735203
+"GO:0015870","BP","acetylcholine transport",4,2,0.00174063409189259,0.283004006096283
+"GO:0061526","BP","acetylcholine secretion",4,2,0.00174063409189259,0.283004006096283
+"GO:0060324","BP","face development",47,5,0.00174274205614604,0.283004006096283
+"GO:0048856","BP","anatomical structure development",5949,108.5,0.00177600157556942,0.286374000533895
+"GO:0007187","BP","G protein-coupled receptor signaling pathway, coupled to cyclic nucleotide second messenger",253,10,0.00179149609404343,0.28685235010708
+"GO:0051239","BP","regulation of multicellular organismal process",3244,66,0.00184849223194053,0.293923101630156
+"GO:0060429","BP","epithelium development",1289,31,0.00189493983725814,0.299230603128963
+"GO:0040034","BP","regulation of development, heterochronic",14,3,0.00195111496102481,0.305908786576886
+"GO:0010171","BP","body morphogenesis",49,5,0.00196395124369141,0.305908786576886
+"GO:0007420","BP","brain development",724,23,0.001988807029921,0.306898074440411
+"GO:0030154","BP","cell differentiation",4210,81.5,0.00199710936330617,0.306898074440411
+"GO:0032502","BP","developmental process",6358,113.5,0.00209349688267036,0.316770571922372
+"GO:0010468","BP","regulation of gene expression",4964,83.5,0.00209863680504024,0.316770571922372
+"GO:0048869","BP","cellular developmental process",4400,84.5,0.00210285744561298,0.316770571922372
+"GO:1905332","BP","positive regulation of morphogenesis of an epithelium",35,4,0.00220544831411375,0.330053268289298
+"GO:0048731","BP","system development",4886,92.5,0.00227898152389273,0.338843116575142
+"GO:0007189","BP","adenylate cyclase-activating G protein-coupled receptor signaling pathway",138,7,0.00231916949986255,0.340092747973932
+"GO:0060325","BP","face morphogenesis",31,4,0.00232615567414831,0.340092747973932
+"GO:0006751","BP","glutathione catabolic process",8,2,0.00233194573227529,0.340092747973932
+"GO:0060688","BP","regulation of morphogenesis of a branching structure",56,5,0.00239463598080692,0.346548678583965
+"GO:0007275","BP","multicellular organism development",5456,100.5,0.00241413257986727,0.346548678583965
+"GO:0021522","BP","spinal cord motor neuron differentiation",34,4,0.00242161805360678,0.346548678583965
+"GO:0072189","BP","ureter development",16,3,0.0025227879833348,0.351901445972576
+"GO:0007369","BP","gastrulation",184,9,0.00255398909959849,0.351901445972576
+"GO:0048513","BP","animal organ development",3558,70,0.00257381158086097,0.351901445972576
+"GO:0032501","BP","multicellular organismal process",7632,125.5,0.00257628635023799,0.351901445972576
+"GO:0031323","BP","regulation of cellular metabolic process",6219,106.5,0.00259790338128382,0.351901445972576
+"GO:0021778","BP","oligodendrocyte cell fate specification",5,2,0.00259931634866048,0.351901445972576
+"GO:0021779","BP","oligodendrocyte cell fate commitment",5,2,0.00259931634866048,0.351901445972576
+"GO:0021780","BP","glial cell fate specification",5,2,0.00259931634866048,0.351901445972576
+"GO:0048333","BP","mesodermal cell differentiation",35,4,0.00261143861078976,0.351901445972576
+"GO:0003228","BP","atrial cardiac muscle tissue development",7,2,0.00263638066025217,0.351901445972576
+"GO:0042221","BP","response to chemical",4702,81,0.0026443360797665,0.351901445972576
+"GO:0035115","BP","embryonic forelimb morphogenesis",33,4,0.00265792155123085,0.351901445972576
+"GO:0000902","BP","cell morphogenesis",1032,31,0.00267418664450488,0.351901445972576
+"GO:0023019","BP","signal transduction involved in regulation of gene expression",20,3,0.00271857711689513,0.355418563094833
+"GO:1901374","BP","acetate ester transport",6,2,0.00273824358743571,0.355418563094833
+"GO:0048664","BP","neuron fate determination",6,2,0.0027531591016796,0.355418563094833
+"GO:0002009","BP","morphogenesis of an epithelium",537,18,0.0027630040717509,0.355418563094833
+"GO:0003044","BP","regulation of systemic arterial blood pressure mediated by a chemical signal",49,4,0.00281467046323944,0.358041719982186
+"GO:0019935","BP","cyclic-nucleotide-mediated signaling",214,9,0.00308227081615419,0.388297422726793
+"GO:2001032","BP","regulation of double-strand break repair via nonhomologous end joining",21,3,0.00308643625524201,0.388297422726793
+"GO:0048880","BP","sensory system development",370,14,0.00316393272199881,0.395871953746485
+"GO:0048593","BP","camera-type eye morphogenesis",112,7,0.00319070160557849,0.397051601428971
+"GO:0048522","BP","positive regulation of cellular process",5372,97,0.00370954996898604,0.45421158096189
+"GO:0060323","BP","head morphogenesis",36,4,0.00378623734847773,0.461135513660077
+"GO:0051241","BP","negative regulation of multicellular organismal process",1312,30,0.00386194367446523,0.466064769672836
+"GO:0048592","BP","eye morphogenesis",149,8,0.00387561295561223,0.466064769672836
+"GO:0034341","BP","response to interferon-gamma",196,8,0.00393503079719426,0.466815727105859
+"GO:0060330","BP","regulation of response to interferon-gamma",25,3,0.0039732082692816,0.466815727105859
+"GO:0060334","BP","regulation of interferon-gamma-mediated signaling pathway",25,3,0.0039732082692816,0.466815727105859
+"GO:0034654","BP","nucleobase-containing compound biosynthetic process",4201,76.5,0.00397558923813786,0.466815727105859
+"GO:0015696","BP","ammonium transport",107,6,0.0040137910486806,0.46688357962956
+"GO:0021537","BP","telencephalon development",249,11,0.00401694829833704,0.46688357962956
+"GO:0051187","BP","cofactor catabolic process",63,4,0.00418727905472708,0.481000558071805
+"GO:0072049","BP","comma-shaped body morphogenesis",6,2,0.00420142864193392,0.481000558071805
+"NA",NA,NA,NA,NA,NA,NA
+"NA.1",NA,NA,NA,NA,NA,NA
+"NA.2",NA,NA,NA,NA,NA,NA
+"NA.3",NA,NA,NA,NA,NA,NA
+"NA.4",NA,NA,NA,NA,NA,NA
+"NA.5",NA,NA,NA,NA,NA,NA
+"NA.6",NA,NA,NA,NA,NA,NA
+"NA.7",NA,NA,NA,NA,NA,NA
+"NA.8",NA,NA,NA,NA,NA,NA
+"NA.9",NA,NA,NA,NA,NA,NA
+"NA.10",NA,NA,NA,NA,NA,NA
+"NA.11",NA,NA,NA,NA,NA,NA
+"NA.12",NA,NA,NA,NA,NA,NA
+"NA.13",NA,NA,NA,NA,NA,NA
+"NA.14",NA,NA,NA,NA,NA,NA
+"NA.15",NA,NA,NA,NA,NA,NA
+"NA.16",NA,NA,NA,NA,NA,NA
+"NA.17",NA,NA,NA,NA,NA,NA
+"NA.18",NA,NA,NA,NA,NA,NA
+"NA.19",NA,NA,NA,NA,NA,NA
+"NA.20",NA,NA,NA,NA,NA,NA
+"NA.21",NA,NA,NA,NA,NA,NA
+"NA.22",NA,NA,NA,NA,NA,NA
+"NA.23",NA,NA,NA,NA,NA,NA
+"NA.24",NA,NA,NA,NA,NA,NA
