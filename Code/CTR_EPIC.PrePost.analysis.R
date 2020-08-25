@@ -355,9 +355,14 @@ gst_regionsProm_GB <- goregion(regions = DMRs_closest_filt_Prom_GB_granges,
 
 head(gst_regionsProm_GB)
 table(gst_regionsProm_GB$FDR<0.05)
-subset(topGSA(gst_regionsProm_GB, number=200), ONTOLOGY=="BP")[c(1:10),]
-subset(topGSA(gst_regionsProm_GB, number=200), ONTOLOGY=="MF")[c(1:10),]
+gst_regionsProm_GB_BP <- subset(topGSA(gst_regionsProm_GB, number=200), ONTOLOGY=="BP")[c(1:200),]
+gst_regionsProm_GB_MF <- subset(topGSA(gst_regionsProm_GB, number=200), ONTOLOGY=="MF")[c(1:25),]
 
+
+write.csv(as.data.frame(gst_regionsProm_GB_BP), 
+          file=paste0(baseDir, "/", GitHubDir, "/Data/", Project, "_first_vs_second_goregion_regionsProm_GB_BP", ".csv"))
+write.csv(gst_regionsProm_GB_MF, 
+          file=paste0(baseDir, "/", GitHubDir, "/Data/", Project, "_first_vs_second_goregion_regionsProm_GB_MF", ".csv"))
 
 message("+-------------------------------------------------------------------------------")
 message("+ Annotate the genomic positions")
